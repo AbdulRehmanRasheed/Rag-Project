@@ -62,7 +62,20 @@ CSS = """
 
 html, body, [class*="css"], .stApp { font-family: 'DM Sans', sans-serif; color: var(--ink); }
 .stApp { background: var(--cream); }
-#MainMenu, footer, header[data-testid="stHeader"] { visibility: hidden; height: 0; }
+/* Hide the menu/deploy clutter but KEEP the header, because the "open sidebar" button lives in it */
+#MainMenu, footer, [data-testid="stToolbar"], [data-testid="stDecoration"], [data-testid="stStatusWidget"] { visibility: hidden; }
+header[data-testid="stHeader"] { background: transparent !important; }
+
+/* The button that reopens a collapsed sidebar: make it easy to spot */
+[data-testid="stExpandSidebarButton"], [data-testid="stSidebarCollapsedControl"] button,
+[data-testid="collapsedControl"] button {
+    visibility: visible !important; background: var(--teal) !important; border-radius: 10px !important;
+    box-shadow: 0 6px 14px rgba(31,111,107,.25); transition: transform .15s ease;
+}
+[data-testid="stExpandSidebarButton"]:hover, [data-testid="stSidebarCollapsedControl"] button:hover,
+[data-testid="collapsedControl"] button:hover { transform: scale(1.08); }
+[data-testid="stExpandSidebarButton"] *, [data-testid="stSidebarCollapsedControl"] button *,
+[data-testid="collapsedControl"] button * { color: #fff !important; fill: #fff !important; }
 .block-container { padding-top: 1.6rem; max-width: 1100px; }
 
 /* ---------- Animations ---------- */
